@@ -1,9 +1,9 @@
 package npm
 
 import (
+	"errors"
 	"path/filepath"
 
-	"github.com/fossas/fossa-cli/errors"
 	"github.com/fossas/fossa-cli/files"
 	"github.com/fossas/fossa-cli/graph"
 	"github.com/fossas/fossa-cli/pkg"
@@ -97,7 +97,7 @@ type Lockfile struct {
 }
 
 func FromLockfile(filename string) (Lockfile, error) {
-	return Lockfile{}, errors.ErrNotImplemented
+	return Lockfile{}, errors.New("not implemented")
 }
 
 // TODO: add support for NODE_PATH and GLOBAL_FOLDERS.

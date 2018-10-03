@@ -2,6 +2,7 @@ package golang
 
 import (
 	"github.com/apex/log"
+	"github.com/pkg/errors"
 
 	// Each of these build tools provides a resolver.Resolver
 	"github.com/fossas/fossa-cli/analyzers/golang/resolver"
@@ -13,7 +14,6 @@ import (
 	"github.com/fossas/fossa-cli/buildtools/govendor"
 	"github.com/fossas/fossa-cli/buildtools/vndr"
 
-	"github.com/fossas/fossa-cli/errors"
 	"github.com/fossas/fossa-cli/graph"
 	"github.com/fossas/fossa-cli/pkg"
 )
@@ -86,7 +86,7 @@ func (a *Analyzer) Analyze() (graph.Deps, error) {
 	// Resolve revisions by traversing the local $GOPATH and calling the package's
 	// VCS.
 	case "gopath-vcs":
-		return graph.Deps{}, errors.ErrNotImplemented
+		return graph.Deps{}, errors.New("not implemented")
 
 	// Read revisions from an auto-detected tool manifest.
 	default:

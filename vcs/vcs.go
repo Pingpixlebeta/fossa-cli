@@ -3,9 +3,9 @@
 package vcs
 
 import (
+	"errors"
 	"path/filepath"
 
-	"github.com/fossas/fossa-cli/errors"
 	"github.com/fossas/fossa-cli/files"
 )
 
@@ -56,7 +56,7 @@ func Nearest(dirname string) (VCS, string, error) {
 }
 
 // GetRepository returns the location of the repository containing dirname,
-// ErrNoNearestVCS if none is found, or errors.ErrNotImplemented if an
+// ErrNoNearestVCS if none is found, or errors.ErrUnsupportedVCS if an
 // unsupported VCS is found.
 func GetRepository(dirname string) (string, error) {
 	vcs, dir, err := Nearest(dirname)
@@ -67,12 +67,12 @@ func GetRepository(dirname string) (string, error) {
 	case Git:
 		return dir, nil
 	case Subversion:
-		return "", errors.ErrNotImplemented
+		return "", ErrUnsupportedVCS
 	case Mercurial:
-		return "", errors.ErrNotImplemented
+		return "", ErrUnsupportedVCS
 	case Bazaar:
-		return "", errors.ErrNotImplemented
+		return "", ErrUnsupportedVCS
 	default:
-		return "", errors.ErrNotImplemented
+		return "", ErrUnsupportedVCS
 	}
 }

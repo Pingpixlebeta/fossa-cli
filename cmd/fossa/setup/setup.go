@@ -7,6 +7,7 @@ import (
 	"github.com/fossas/fossa-cli/api/fossa"
 	"github.com/fossas/fossa-cli/cmd/fossa/display"
 	"github.com/fossas/fossa-cli/config"
+	"github.com/fossas/fossa-cli/errors"
 )
 
 // SetContext initializes all application-level packages.
@@ -26,9 +27,19 @@ func SetContext(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	fossa.SetAPIKey(config.APIKey())
 
 	return nil
 }
 
-// TODO: testing version of SetContext?
+// SetAPIKey sets the API key for the API package.
+func SetAPIKey(key string) error {
+	if key == "" {
+		return errors.Error{
+			Code:    "E_MISSING_API_KEY",
+			Type:    errors.UserInput,
+			Message: "missing FOSSA API key",
+		}
+	}
+	fossa.SetAPIKey(key)
+	return nil
+}
